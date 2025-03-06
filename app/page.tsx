@@ -1,48 +1,115 @@
-'use client';
-
-import { generateTextAction } from "@/lib/ai/actions";
-import { useState } from "react";
+import Link from "next/link";
+import {
+  GitBranchPlus,
+  GitFork,
+  GitMerge,
+  Network,
+  Settings2,
+} from "lucide-react";
 
 export default function Home() {
-  const [text, setText] = useState('');
-  const [result, setResult] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <h1 className="text-2xl font-bold">AI Text Generator</h1>
-      <div className="w-full max-w-2xl space-y-4">
-        <textarea
-          className="w-full h-32 p-4 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-black"
-          placeholder="Enter your text here..."
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-        />
-        <div className="flex justify-center">
-          <button
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-            onClick={async () => {
-              setIsLoading(true);
-              const result = await generateTextAction(text);
-              setResult(result);
-              setIsLoading(false);
-            }}
-            disabled={isLoading}
+    <div className="min-h-screen bg-background p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold mb-8 text-primary">
+          AI Resume Analysis Methods
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Sequential Processing Card */}
+          <Link
+            href="/chains"
+            className="group block p-6 bg-card rounded-lg border border-border hover:border-primary transition-colors"
           >
-            {isLoading ? 'Generating...' : 'Generate'}
-          </button>
+            <div className="flex items-start gap-4">
+              <GitBranchPlus className="w-6 h-6 text-primary shrink-0" />
+              <div>
+                <h2 className="text-xl font-semibold mb-3 text-primary group-hover:text-primary/80">
+                  Sequential Processing (Chains)
+                </h2>
+                <p className="text-muted-foreground">
+                  Upload your resume and let the AI agent analyze it sequentially to provide you with
+                  insights on your skills, experience, and strengths.
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Routing Card */}
+          <Link
+            href="/routing"
+            className="group block p-6 bg-card rounded-lg border border-border hover:border-primary transition-colors"
+          >
+            <div className="flex items-start gap-4">
+              <GitFork className="w-6 h-6 text-primary shrink-0" />
+              <div>
+                <h2 className="text-xl font-semibold mb-3 text-primary group-hover:text-primary/80">
+                  Routing
+                </h2>
+                <p className="text-muted-foreground">
+                  Upload your resume and let the AI agent intelligently route analysis tasks to provide you with
+                  comprehensive insights.
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Parallel Processing Card */}
+          <Link
+            href="/parallel"
+            className="group block p-6 bg-card rounded-lg border border-border hover:border-primary transition-colors"
+          >
+            <div className="flex items-start gap-4">
+              <GitMerge className="w-6 h-6 text-primary shrink-0" />
+              <div>
+                <h2 className="text-xl font-semibold mb-3 text-primary group-hover:text-primary/80">
+                  Parallel Processing
+                </h2>
+                <p className="text-muted-foreground">
+                  Upload your resume and let multiple AI agents analyze it simultaneously for faster,
+                  multi-faceted insights.
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Orchestrator-Worker Card */}
+          <Link
+            href="/orch-worker"
+            className="group block p-6 bg-card rounded-lg border border-border hover:border-primary transition-colors"
+          >
+            <div className="flex items-start gap-4">
+              <Network className="w-6 h-6 text-primary shrink-0" />
+              <div>
+                <h2 className="text-xl font-semibold mb-3 text-primary group-hover:text-primary/80">
+                  Orchestrator-Worker
+                </h2>
+                <p className="text-muted-foreground">
+                  Upload your resume and let a coordinated team of AI agents work together to provide
+                  detailed analysis and insights.
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Evaluator-Optimizer Card */}
+          <Link
+            href="/eval-opt"
+            className="group block p-6 bg-card rounded-lg border border-border hover:border-primary transition-colors"
+          >
+            <div className="flex items-start gap-4">
+              <Settings2 className="w-6 h-6 text-primary shrink-0" />
+              <div>
+                <h2 className="text-xl font-semibold mb-3 text-primary group-hover:text-primary/80">
+                  Evaluator-Optimizer
+                </h2>
+                <p className="text-muted-foreground">
+                  Upload your resume and let AI agents evaluate and optimize your resume content for
+                  maximum impact.
+                </p>
+              </div>
+            </div>
+          </Link>
         </div>
-        {result && (
-          <div className="p-4 bg-white rounded-lg shadow">
-            {result}
-          </div>
-        )}
-        {isLoading && (
-          <div className="flex justify-center">
-            <div className="animate-pulse text-blue-600">Loading...</div>
-          </div>
-        )}
       </div>
     </div>
   );
